@@ -9,12 +9,12 @@ export const authOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
-      scope: "read:user",
+      // scope: "read:user",
     }),
   ],
-  jwt: { signingKey: process.env.SIGNING_KEY },
+  // jwt: { signingKey: process.env.SIGNING_KEY },
   callbacks: {
-    async signIn(user: any, account: any, profile: any) {
+    async signIn({user, account, profile}) {
       const { email } = user;
 
       try {
@@ -31,7 +31,8 @@ export const authOptions = {
         );
 
         return true;
-      } catch {
+      } catch (error) {
+        console.log(error)
         return false;
       }
     },
